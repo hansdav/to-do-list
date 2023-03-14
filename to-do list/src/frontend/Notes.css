@@ -1,0 +1,92 @@
+:root {
+	--note-size: 200px;
+	--note-background-color: yellow;
+	--header-background-color: khaki;
+}
+
+body {
+	margin: 20px;
+}
+
+.note-text {
+	width: var(--note-size);
+	height: var(--note-size);
+	box-shadow: black 0.5rem 0.5rem;
+	padding: 2%;
+	margin: 1rem;
+	background-color: var(--note-background-color);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+#note-type,
+#input-type {
+	width: 100px;
+	height: 20px;
+	background-color: var(--note-background-color);
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.red {
+	background-color: red;
+}
+
+.delete-button {
+	background-color: var(--note-background-color);
+	border: var(--note-background-color);
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100vw;
+}
+
+#header-title {
+	width: 100%;
+}
+
+#input-type {
+	background-color: white;
+}
+
+#text-input {
+	max-width: 80%;
+	max-height: 80%;
+}
+
+.notes-header {
+	width: 90vw;
+	height: 20vh;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 20px;
+	justify-content: center;
+	gap: 10px;
+	background-color: var(--header-background-color);
+}
+
+.header-toggles {
+	width: 90vw;
+	padding: 20px;
+	background-color: var(--header-background-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+#add-button {
+	height: 2rem;
+}
+
+.note-toggle {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
