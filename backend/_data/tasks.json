@@ -1,0 +1,16 @@
+[
+	{
+		"name": "do laundry",
+		"date": "2023-03-14",
+		"completed": false,
+		"priority": "mid",
+		"type": "personal"
+	},
+	{
+		"name": "cook lunch",
+		"date": "2023-03-15",
+		"completed": false,
+		"priority": "high",
+		"type": "personal"
+	}
+]
