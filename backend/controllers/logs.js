@@ -12,6 +12,7 @@ export const displayTimeframe = async (req, res, next) => {
 		},
 	});
 	res.status(200).json({
+		number: `${await Logs.countDocuments()}`,
 		success: true,
 		date: logs,
 		msg: `showing all ${await Logs.countDocuments()} logs from ${

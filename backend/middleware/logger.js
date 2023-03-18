@@ -9,7 +9,7 @@ export const logger = async (req, res, next) => {
 
 	const documents = await Logs.countDocuments({});
 
-	if (documents < 5) {
+	if (documents < 20) {
 		await Logs.create({
 			method: req.method,
 			date: Date.now(),

@@ -3,8 +3,30 @@ import Tasks from "../models/Tasks.js";
 //@description Get all tasks
 //@route GET /api/tasks
 //@access Public
-export const getTasks = (req, res, next) => {
-	res.status(200).json({ success: true, msg: "show all tasks" });
+export const getTasks = async (req, res, next) => {
+	let query;
+
+	let queryStr = JSON.stringify(req.query);
+
+	queryStr = queryStr.replace(
+		/\b(gt|gte|lt|lte|in)\b/g,
+		(match) => `$${match}`
+	);
+
+	console.log(queryStr);
+
+	query = Tasks.find(JSON.parse(queryStr));
+
+	const tasks = await query;
+
+	res
+		.status(200)
+		.json({
+			success: true,
+			count: tasks.length,
+			data: tasks,
+			msg: "show all tasks",
+		});
 };
 
 //@description Create new task
@@ -20,8 +42,18 @@ export const createTask = async (req, res, next) => {
 //@route GET /api/tasks/:id
 //@access Public
 
-export const getTask = (req, res, next) => {
-	res.status(200).json({ success: true, msg: `show task ${req.params.id}` });
+export const getTask = async (req, res, next) => {
+	try {
+		const task = await Tasks.findById(req.params.id);
+
+		if (!task) {
+			return res.status(400).json({ success: false });
+		}
+
+		res.status(200).json({ success: true, data: task });
+	} catch (err) {
+		res.status(400).json({ success: false });
+	}
 };
 
 //@description delete single task
@@ -29,8 +61,18 @@ export const getTask = (req, res, next) => {
 //@access authentication
 
 export const deleteTask = async (req, res, next) => {
-	const task = await Tasks.deleteOne(req.body);
-	res.status(200).json({ success: true, data: task, msg: "delete task" });
+	try {
+		const task = await Tasks.findByIdAndDelete(req.params.id);
+
+		if (!task) {
+			return res.status(400).json({ success: false });
+		}
+
+		res.status(200).json({ success: true, data: {}, msg: "task deleted" });
+	} catch (err) {
+		// res.status(400).json({ success: false });
+		next(err);
+	}
 };
 
 //@description update single task
@@ -38,6 +80,19 @@ export const deleteTask = async (req, res, next) => {
 //@access authentication
 
 export const updateTask = async (req, res, next) => {
-	const task = await Tasks.updateOne(req.body);
-	res.status(200).json({ sucess: true, data: task, msg: "update task" });
+	const task = await Tasks.findByIdAndUpdate(req.params.id, req.body, {
+		new: true,
+		runValdiators: true,
+	});
+
+	if (!task) {
+		return res.status(400).json({ success: false });
+	}
+
+	res.status(200).json({
+		sucess: true,
+		count: Tasks.length,
+		data: task,
+		msg: "update task",
+	});
 };

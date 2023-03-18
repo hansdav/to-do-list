@@ -4,7 +4,7 @@ import colors from "colors";
 import { default as connectDB } from "./config/db.js";
 import { logger } from "./middleware/logger.js";
 import morgan from "morgan";
-
+import errorHandler from "./middleware/error.js";
 // route files
 import { default as tasks } from "./routes/tasks.js";
 import { default as logs } from "./routes/logs.js";
@@ -30,6 +30,8 @@ app.use(express.json());
 // mount routers
 
 app.use("/api/tasks", tasks);
+
+app.use(errorHandler);
 
 app.use("/api/logs", logs);
 
