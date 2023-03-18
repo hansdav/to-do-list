@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const TasksSchema = new mongoose.Schema({
+const TasksSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: [true, "Please add a name"],
@@ -23,4 +23,4 @@ export const TasksSchema = new mongoose.Schema({
 	},
 });
 
-// export default mongoose.model("Tasks", TasksSchema);
+export default mongoose.model("Tasks", TasksSchema);

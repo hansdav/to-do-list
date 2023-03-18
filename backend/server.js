@@ -2,9 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
 import { default as connectDB } from "./config/db.js";
+import { logger } from "./middleware/logger.js";
+import morgan from "morgan";
 
 // route files
 import { default as tasks } from "./routes/tasks.js";
+import { default as logs } from "./routes/logs.js";
 
 // load ENV Vars
 dotenv.config({ path: "./config/config.env" });
@@ -14,12 +17,21 @@ connectDB();
 
 const app = express();
 
+// dev logging Middleware
+if (process.env.NODE_ENV === "development") {
+	app.use(morgan("dev"));
+}
+
+app.use(logger);
+
 // Body parser
 app.use(express.json());
 
 // mount routers
 
 app.use("/api/tasks", tasks);
+
+app.use("/api/logs", logs);
 
 const PORT = process.env.PORT || 5001;
 

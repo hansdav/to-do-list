@@ -7,6 +7,7 @@ const connectDB = async () => {
 	});
 
 	console.log(`mongoDB connected: ${conn.connection.host}`.cyan.underline.bold);
+	return conn;
 };
 
 export default connectDB;
